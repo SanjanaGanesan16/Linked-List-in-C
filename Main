@@ -1,0 +1,74 @@
+
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node{
+    int data;
+    struct Node* next;
+}Node;
+
+
+void insertAtTheBeginning(struct Node** head, int data){
+    struct Node* temp_node = malloc(sizeof(struct Node));
+    temp_node->data = data;
+    temp_node->next = *head;
+    *head = temp_node;
+    // free(temp_node);
+    
+}
+
+
+
+void insertAtTheEnd(struct Node** head, int data){
+    struct Node* new_node = malloc(sizeof(struct Node));
+    new_node->data = data;
+    new_node->next = NULL;
+    
+    if(*head == NULL){
+        *head = new_node;
+        return;
+    }
+    
+    struct Node* temp_node = *head;
+    while(temp_node->next != NULL){
+        temp_node = temp_node->next;
+    }
+    
+    temp_node->next = new_node;
+}
+
+
+void printList(struct Node* head){
+    struct Node* current = head;
+    while (current != NULL){
+        printf("[%d] -> ", current->data);
+        current = current->next;
+    }
+    
+    printf("NULL \n");
+}
+
+
+
+int main(){
+    struct Node* list = NULL;
+    
+    insertAtTheBeginning(&list, 10);
+    insertAtTheBeginning(&list, 1);
+    insertAtTheBeginning(&list, 9);
+    insertAtTheBeginning(&list, 30);
+    insertAtTheBeginning(&list, 999);
+
+
+    printList(list);
+    
+    insertAtTheEnd(&list, 1000);
+
+    printList(list);
+    
+    
+    
+
+
+    return 0;
+}
